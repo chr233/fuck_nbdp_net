@@ -8,6 +8,7 @@ import bs4
 
 '''
 By Chr_
+Email: chr@chrxw.com
 '''
 
 def download_exam():
@@ -89,7 +90,6 @@ def analyzesoup(soupobj:bs4.element.NavigableString):
             return(out)
 
         return(None)
-
 
 def sheetwriter(list,sheetobj):
     sheetobj.write(0,1, xlwt.Formula('HYPERLINK("%s";"%s")' % list[0]))
