@@ -104,24 +104,23 @@ def sheetwriter(list,sheetobj):
     for item in list:
         #print(item)
         if 'tp' in item:#插图片
-            _col=6
+            _col=7
             for tp in item['tp']:
                 url='http://lib.nbdp.net/'+tp
                 sheetobj.write(_row,_col, xlwt.Formula('HYPERLINK("%s";"查看图片")' % url))
                 _col+=1
             pass
+
         if 'xx' in item:#选择题
             sheetobj.write(_row,1, label =item['tg'])
             sheetobj.write(_row,0, label =item['da'])
-            try:
-                sheetobj.write(_row,2, label =item['xx'][0])
-                sheetobj.write(_row,3, label =item['xx'][1])
-                sheetobj.write(_row,4, label =item['xx'][2])
-                sheetobj.write(_row,5, label =item['xx'][3])
-            except Exception:
-                sheetobj.write(_row,7, label ='数据有误 ，请参照原网站')
+            col=2
+            for i in item['xx']:
+                sheetobj.write(_row,col, label =i)
+                col+=1
             _row+=1
             continue
+
         if 'dm' in item:#填空题
             lines=item['tg'].splitlines(False)
             _row+=1
@@ -133,6 +132,7 @@ def sheetwriter(list,sheetobj):
                 sheetobj.write(_row,1, label =line)
                 _row+=1
             continue
+
         if 'jd' in item:#简答题
             row1=_row
             row2=_row
